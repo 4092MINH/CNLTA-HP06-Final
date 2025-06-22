@@ -19,6 +19,7 @@
 		7052799F2E07AE300031826F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		705279A12E07AE320031826F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		705279A42E07AE320031826F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		705279AE2E07AEA60031826F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +52,14 @@
 		7052799C2E07AE300031826F /* CNLTA-HP06-Final */ = {
 			isa = PBXGroup;
 			children = (
+				705279AD2E07AE760031826F /* Views */,
+				705279AC2E07AE660031826F /* DataModels */,
+				705279AB2E07AE580031826F /* Components */,
 				7052799D2E07AE300031826F /* CNLTA_HP06_FinalApp.swift */,
 				7052799F2E07AE300031826F /* ContentView.swift */,
 				705279A12E07AE320031826F /* Assets.xcassets */,
 				705279A32E07AE320031826F /* Preview Content */,
+				705279AE2E07AEA60031826F /* README.md */,
 			);
 			path = "CNLTA-HP06-Final";
 			sourceTree = "<group>";
@@ -65,6 +70,27 @@
 				705279A42E07AE320031826F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		705279AB2E07AE580031826F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		705279AC2E07AE660031826F /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		705279AD2E07AE760031826F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
