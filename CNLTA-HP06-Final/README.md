@@ -1,128 +1,81 @@
-# Quick Note - Ứng dụng Ghi chú Nhanh và Nhắc nhở (MVP)
+# Ghi Chú & Nhắc Nhở SwiftUI
 
-Một ứng dụng di động tối giản giúp bạn ghi lại nhanh chóng các ý tưởng, công việc cần làm và đặt lời nhắc để không bao giờ bỏ lỡ chúng. Đây là phiên bản MVP (Sản phẩm Khả dụng Tối thiểu) tập trung vào các chức năng cốt lõi và trải nghiệm người dùng mượt mà.
+Đây là một ứng dụng ghi chú và nhắc nhở đơn giản, được xây dựng hoàn toàn bằng **Swift** và **SwiftUI**. Mục tiêu của dự án là tạo ra một ứng dụng hữu ích đồng thời là một ví dụ tuyệt vời cho những ai đang học và làm quen với lập trình giao diện người dùng khai báo (declarative UI) của Apple.
 
-`[Chèn ảnh chụp màn hình của ứng dụng tại đây]`
+ <!-- Bạn có thể thay thế bằng ảnh chụp màn hình thực tế của ứng dụng -->
 
-## Mục lục
+## ✨ Tính năng của sản phẩm
 
-1.  [Tính năng chính](#tính-năng-chính)
-2.  [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-3.  [Kiến thức lập trình cần thiết](#kiến-thức-lập-trình-cần-thiết)
-4.  [Hướng dẫn cài đặt](#hướng-dẫn-cài-đặt-(ví-dụ))
+*   **Quản lý Ghi chú:**
+    *   📝 **Thêm ghi chú mới:** Dễ dàng tạo ghi chú với tiêu đề và nội dung chi tiết.
+    *   👀 **Xem danh sách ghi chú:** Tất cả các ghi chú được hiển thị trong một danh sách trực quan.
+    *   ✏️ **Chỉnh sửa ghi chú:** Cập nhật tiêu đề hoặc nội dung của ghi chú đã có.
+    *   🗑️ **Xoá ghi chú:** Xoá những ghi chú không còn cần thiết bằng thao tác vuốt.
+*   **Chức năng Nhắc nhở:**
+    *   ⏰ **Đặt lịch nhắc nhở:** Thêm ngày và giờ nhắc nhở cho từng ghi chú.
+    *   ✅ **Đánh dấu hoàn thành:** Đánh dấu một ghi chú/nhiệm vụ là đã hoàn thành.
+    *   🎨 **Hiển thị trạng thái:** Các ghi chú có lịch hẹn sắp tới hoặc đã quá hạn sẽ được làm nổi bật.
+*   **Giao diện và Trải nghiệm:**
+    *   ✨ Giao diện đơn giản, sạch sẽ và hiện đại.
+    *   💾 Dữ liệu được lưu trữ cục bộ trên thiết bị, giúp bạn truy cập ghi chú ngay cả khi không có mạng.
 
-## Tính năng chính
+## 🏗️ Các thành phần của sản phẩm
 
-Phiên bản MVP của Quick Note tập trung vào việc giải quyết nhu cầu cơ bản nhất của người dùng: ghi lại và được nhắc nhở.
+Ứng dụng được cấu trúc thành ba phần chính để dễ dàng quản lý và mở rộng:
 
-*   **✍️ Tạo Ghi chú Tức thì:** Giao diện đơn giản cho phép tạo ghi chú mới chỉ với một cú chạm. Chỉ cần nhập tiêu đề và nội dung.
-*   **📋 Xem Danh sách Ghi chú:** Tất cả các ghi chú được hiển thị trên một màn hình chính, sắp xếp theo thời gian tạo mới nhất để dễ dàng truy cập.
-*   **✏️ Chỉnh sửa và Xóa:** Dễ dàng mở lại một ghi chú để cập nhật nội dung hoặc xóa bỏ khi không còn cần thiết.
-*   **⏰ Đặt Lời nhắc Đơn giản:** Gán một ngày và giờ cụ thể cho bất kỳ ghi chú nào để nhận thông báo.
-*   **🔔 Thông báo Đẩy (Push Notification):** Nhận thông báo nhắc nhở ngay trên điện thoại vào đúng thời điểm đã đặt, ngay cả khi ứng dụng đang đóng.
-*   **🚀 Tối ưu Tốc độ:** Ứng dụng được thiết kế để khởi động và hoạt động nhanh chóng, không làm bạn phải chờ đợi.
-*   **💾 Lưu trữ Cục bộ:** Toàn bộ dữ liệu được lưu trực tiếp trên thiết bị của bạn, không cần đăng ký tài khoản hay kết nối internet.
+1.  **Views (Giao diện):** Chịu trách nhiệm hiển thị dữ liệu và nhận tương tác từ người dùng. Đây là tất cả những gì người dùng nhìn thấy trên màn hình.
+    *   `NoteListView.swift`: Màn hình chính hiển thị danh sách tất cả các ghi chú.
+    *   `NoteDetailView.swift`: Màn hình chi tiết để xem, chỉnh sửa hoặc tạo mới một ghi chú.
+2.  **Data Models (Mô hình Dữ liệu):** Định nghĩa cấu trúc dữ liệu cốt lõi của ứng dụng.
+    *   `Note.swift`: Định nghĩa đối tượng `Note` với các thuộc tính như `id`, `title`, `content`, `reminderDate`, `isCompleted`.
+    *   `NoteStore.swift`: Một lớp đóng vai trò là "nguồn sự thật" (source of truth), quản lý toàn bộ danh sách các ghi chú (thêm, sửa, xoá, lưu trữ).
+3.  **Components (Thành phần Tái sử dụng):** Các phần giao diện nhỏ, độc lập có thể được tái sử dụng ở nhiều nơi trong ứng dụng.
+    *   `NoteRowView.swift`: Giao diện cho một hàng trong danh sách ghi chú (`NoteListView`).
+    *   `ActionButton.swift`: Một nút bấm với style tùy chỉnh được sử dụng chung trong toàn bộ ứng dụng.
 
-## Cấu trúc thư mục
+## 🧠 Kiến thức SwiftUI được sử dụng (Từ dễ đến khó)
 
-Dự án được tổ chức theo cấu trúc rõ ràng để dễ dàng bảo trì và phát triển.
+Dự án này tập trung vào các khái niệm cốt lõi và phổ biến nhất của SwiftUI.
+
+#### 1. Cơ bản về Giao diện (UI Basics)
+*   **Views & Controls:** Sử dụng các thành phần giao diện cơ bản như `Text`, `TextField`, `TextEditor`, `Button`, `Image`, `Toggle`.
+*   **Layout:** Sắp xếp các thành phần giao diện bằng `VStack`, `HStack`, `ZStack`, và `Spacer` để tạo ra các layout linh hoạt.
+*   **List:** Hiển thị một danh sách dữ liệu có thể cuộn. Tuyệt vời để hiển thị danh sách ghi chú.
+*   **Navigation:** Sử dụng `NavigationStack` và `NavigationLink` để cho phép người dùng di chuyển giữa màn hình danh sách và màn hình chi tiết.
+*   **Modal Sheets:** Sử dụng `.sheet()` để hiển thị màn hình thêm/sửa ghi chú dưới dạng một modal view.
+
+#### 2. Quản lý Trạng thái & Dữ liệu (State & Data Management)
+*   **`@State`:** Dùng để quản lý trạng thái đơn giản, cục bộ bên trong một View. Ví dụ: lưu trữ văn bản người dùng đang nhập vào `TextField` trước khi lưu ghi chú. `@State` là một *property wrapper* cho phép View tự động cập nhật lại khi giá trị của nó thay đổi.
+*   **`@Binding`:** Tạo một kết nối hai chiều giữa một thuộc tính lưu trữ trạng thái (thường là `@State`) và một View con. Khi View con thay đổi giá trị, sự thay đổi đó sẽ được phản ánh ngược lại ở View cha. Ví dụ: `NoteDetailView` nhận một `Binding` tới một ghi chú để khi người dùng chỉnh sửa, danh sách ở `NoteListView` cũng được cập nhật.
+*   **`Identifiable` Protocol:** Mô hình `Note` sẽ tuân thủ (conform) theo protocol này để `List` có thể xác định duy nhất từng phần tử, giúp việc cập nhật giao diện hiệu quả hơn.
+*   **`ObservableObject` & `@StateObject` / `@ObservedObject`:** Dùng để tạo ra một nguồn dữ liệu phức tạp hơn có thể được chia sẻ giữa nhiều View.
+    *   `NoteStore` sẽ là một `class` tuân thủ `ObservableObject`.
+    *   `@StateObject` được dùng để tạo và giữ cho instance của `NoteStore` tồn tại trong suốt vòng đời của View chứa nó.
+    *   `@ObservedObject` được dùng ở các View con để "lắng nghe" sự thay đổi từ `NoteStore`.
+
+#### 3. Nâng cao hơn một chút
+*   **Data Persistence:** Sử dụng `Codable` protocol để mã hóa (encode) danh sách ghi chú thành dữ liệu JSON và giải mã (decode) ngược lại. Dữ liệu này có thể được lưu vào `UserDefaults` hoặc một file trong bộ nhớ của ứng dụng để đảm bảo dữ liệu không bị mất khi đóng ứng dụng.
+*   **Computed Properties:** Sử dụng các thuộc tính tính toán trong View để xử lý logic hiển thị. Ví dụ: một thuộc tính để quyết định màu sắc của ghi chú dựa trên ngày nhắc nhở (sắp tới, đã quá hạn, hay bình thường).
+
+## 📁 Cấu trúc thư mục
 
 ```
-quick-note-app/
-├── src/
-│   ├── components/       # Các thành phần UI có thể tái sử dụng
-│   ├── views/ or screens/ # Các màn hình chính của ứng dụng
-│   └── data/ or models/  # Định nghĩa cấu trúc dữ liệu
-└── ...
+GhiChuApp/
+├── Data Models/
+│   ├── Note.swift
+│   └── NoteStore.swift
+│
+├── Views/
+│   ├── NoteListView.swift
+│   └── NoteDetailView.swift
+│
+├── Components/
+│   └── NoteRowView.swift
+│
+├── App/
+│   ├── GhiChuAppApp.swift
+│   └── Assets.xcassets
+│
+└── Preview Content/
+    └── Preview Assets.xcassets
 ```
-
-### `data/model/`
-
-Thư mục này chứa các định nghĩa về "hình dạng" dữ liệu của ứng dụng.
-
-*   **`Note.js`**: Mô hình (model) chính của ứng dụng, định nghĩa cấu trúc của một ghi chú.
-    ```javascript
-    // Ví dụ về cấu trúc một đối tượng Note
-    {
-      id: 'string', // ID duy nhất, có thể là timestamp hoặc UUID
-      title: 'string',
-      content: 'string',
-      reminderDate: 'Date | null', // Ngày giờ nhắc nhở, null nếu không có
-      createdAt: 'Date' // Ngày tạo ghi chú
-    }
-    ```
-
-### `views/screens/`
-
-Thư mục này chứa các màn hình chính mà người dùng sẽ tương tác. Mỗi file tương ứng với một màn hình.
-
-*   **`HomeScreen.js`**: Màn hình chính, hiển thị danh sách tất cả ghi chú.
-*   **`AddEditNoteScreen.js`**: Màn hình để tạo mới hoặc chỉnh sửa một ghi chú.
-*   **`SettingsScreen.js`** (Tùy chọn cho tương lai): Màn hình cài đặt ứng dụng.
-
-### `components/`
-
-Chứa các thành phần giao diện (UI components) nhỏ, độc lập và có thể tái sử dụng ở nhiều nơi trong ứng dụng.
-
-*   **`NoteListItem.js`**: Component hiển thị một mục ghi chú trong danh sách ở màn hình chính.
-*   **`CustomButton.js`**: Một nút bấm với style tùy chỉnh được sử dụng xuyên suốt ứng dụng.
-*   **`DateTimePicker.js`**: Component để người dùng chọn ngày và giờ khi đặt lời nhắc.
-
-## Kiến thức lập trình cần thiết
-
-Dưới đây là danh sách các kỹ năng và kiến thức cần thiết để xây dựng dự án này, được sắp xếp theo cấp độ từ dễ đến khó.
-
-### Cấp độ 1: Cơ bản (Fundamentals)
-
-1.  **Ngôn ngữ lập trình:**
-    *   **JavaScript (ES6+)** hoặc **TypeScript** (nếu xây dựng bằng React Native).
-    *   **Dart** (nếu xây dựng bằng Flutter).
-2.  **Kiến thức nền tảng về Lập trình Di động:**
-    *   Hiểu về **Components** (Thành phần), **State** (Trạng thái) và **Props** (Thuộc tính).
-    *   Kiến thức cơ bản về layout (sắp xếp các phần tử trên màn hình) sử dụng Flexbox hoặc các widget tương tự.
-3.  **Sử dụng Git:** Quản lý mã nguồn cơ bản với `git clone`, `git add`, `git commit`, `git push`.
-
-### Cấp độ 2: Trung cấp (Intermediate)
-
-1.  **Kiến thức về Framework:**
-    *   Sử dụng thành thạo **React Native** hoặc **Flutter**.
-    *   **Navigation:** Biết cách điều hướng giữa các màn hình (ví dụ: sử dụng React Navigation hoặc Flutter Navigator).
-2.  **Lập trình Bất đồng bộ (Asynchronous Programming):**
-    *   Sử dụng `async/await` và `Promises` (trong JavaScript) hoặc `async/await` và `Futures` (trong Dart) để xử lý các tác vụ tốn thời gian như đọc/ghi dữ liệu.
-3.  **Lưu trữ Dữ liệu Cục bộ (Local Storage):**
-    *   Kinh nghiệm với các thư viện như **AsyncStorage** (React Native) hoặc **shared_preferences** / **Hive** (Flutter) để lưu và truy xuất dữ liệu trên thiết bị.
-
-### Cấp độ 3: Nâng cao (Advanced)
-
-1.  **Quản lý Trạng thái Toàn cục (Global State Management):**
-    *   Khi ứng dụng lớn hơn, cần sử dụng các thư viện như **Redux**, **MobX**, hoặc **Context API** (cho React Native); **Provider**, **Riverpod**, hoặc **BLoC** (cho Flutter) để quản lý trạng thái một cách hiệu quả.
-2.  **Tích hợp Native Modules:**
-    *   Đây là phần quan trọng nhất cho tính năng "Nhắc nhở". Cần kiến thức để tích hợp và cấu hình các thư viện thông báo đẩy như:
-        *   **`react-native-push-notification`** hoặc **Notifee** cho React Native.
-        *   **`flutter_local_notifications`** cho Flutter.
-    *   Hiểu cách xin quyền (permissions) từ người dùng trên cả iOS và Android.
-3.  **Tối ưu hóa Hiệu năng (Performance Optimization):**
-    *   Sử dụng các danh sách ảo hóa như `FlatList` (React Native) hoặc `ListView.builder` (Flutter) để hiển thị danh sách dài mà không làm giảm hiệu năng.
-    *   Kỹ thuật memoization để tránh re-render không cần thiết.
-
-## Hướng dẫn cài đặt (Ví dụ)
-
-```bash
-# 1. Sao chép dự án về máy
-git clone https://github.com/ten-cua-ban/quick-note-app.git
-
-# 2. Di chuyển vào thư mục dự án
-cd quick-note-app
-
-# 3. Cài đặt các gói phụ thuộc (ví dụ với npm cho React Native)
-npm install
-
-# 4. Chạy ứng dụng
-# Đối với iOS
-npx react-native run-ios
-
-# Đối với Android
-npx react-native run-android
-```
-
----
